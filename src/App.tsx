@@ -33,11 +33,13 @@ function AppContent() {
   const { t } = useLanguage()
   const [showToTop, setShowToTop] = useState(false)
   const [progress, setProgress] = useState(0)
+  const [showProgressBar, setShowProgressBar] = useState(false)
 
   const handleFileSelect = (file: File) => {
     setSelectedFile(file)
     setOutput('')
     setError(null)
+    setShowProgressBar(false)
   }
 
   const extractTextFromPDF = async (file: File): Promise<string> => {
@@ -134,6 +136,7 @@ function AppContent() {
     setError(null);
     setOutput('');
     setProgress(0);
+    setShowProgressBar(false);
     try {
       const plainText = await extractTextFromPDF(file);
       if (outputType === 'plain') {
@@ -141,6 +144,7 @@ function AppContent() {
       } else {
         // Split text and summarize each part
         const parts = splitTextIntoParts(plainText, 15000);
+        setShowProgressBar(parts.length > 1);
         let combinedSummary = '';
         for (let idx = 0; idx < parts.length; idx++) {
           const part = parts[idx];
@@ -161,12 +165,14 @@ function AppContent() {
     setSelectedFile(null);
     setOutput('');
     setError(null);
+    setShowProgressBar(false);
   };
 
   const handleClear = () => {
     setSelectedFile(null);
     setOutput('');
     setError(null);
+    setShowProgressBar(false);
   };
 
   // Функция для скачивания summary
@@ -259,7 +265,7 @@ function AppContent() {
               {isLoading && <ImSpinner2 className="animate-spin mr-2 h-5 w-5" />}
               {t.summary.generate}
             </button>
-            {outputType === 'summary' && isLoading && (
+            {outputType === 'summary' && isLoading && showProgressBar && (
               <div className="w-full max-w-xl mx-auto my-4">
                 <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
                   <div
