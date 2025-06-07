@@ -240,31 +240,16 @@ function AppContent() {
           </div>
           <div className="border-t border-gray-200 dark:border-gray-700 pt-6 mt-2">
             <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">{t.upload.outputTypeLabel}</label>
-            <div className="flex flex-col gap-3 mb-4">
-              <label className="flex items-center text-gray-900 dark:text-white text-base">
-                <input
-                  type="radio"
-                  name="outputType"
-                  value="summary"
-                  checked={outputType === 'summary'}
-                  onChange={() => setOutputType('summary')}
-                  className="form-radio text-primary-600 w-4 h-4"
-                />
-                <span className="ml-2 font-medium">{t.summary.title}</span>
-                <span className="ml-4 text-base text-gray-600 dark:text-white font-medium">{t.summary.summaryDesc}</span>
-              </label>
-              <label className="flex items-center text-gray-900 dark:text-white text-base">
-                <input
-                  type="radio"
-                  name="outputType"
-                  value="plain"
-                  checked={outputType === 'plain'}
-                  onChange={() => setOutputType('plain')}
-                  className="form-radio text-primary-600 w-4 h-4"
-                />
-                <span className="ml-2 font-medium">{t.upload.plainText}</span>
-                <span className="ml-4 text-base text-gray-600 dark:text-white font-medium">{t.upload.plainTextDesc}</span>
-              </label>
+            <div className="flex flex-col gap-2 mb-4">
+              <select
+                value={outputType}
+                onChange={(e) => setOutputType(e.target.value as 'summary' | 'plain')}
+                className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              >
+                <option value="summary">{t.summary.title}</option>
+                <option value="plain">{t.upload.plainText}</option>
+              </select>
+              <p className="text-sm text-gray-600 dark:text-gray-400">{t.upload.outputTypeHint}</p>
             </div>
             <button
               onClick={() => selectedFile && handleFileUpload(selectedFile)}
