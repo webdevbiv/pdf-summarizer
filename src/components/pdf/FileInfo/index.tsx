@@ -1,4 +1,4 @@
-import type { PDFFile } from '../../types';
+import type { PDFFile } from '../../../types';
 
 interface FileInfoProps {
   file: PDFFile;
