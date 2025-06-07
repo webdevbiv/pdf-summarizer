@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import ThemeToggle from '../ThemeToggle';
+import ThemeToggle from '../../ThemeToggle';
 
 interface PageLayoutProps {
   children: ReactNode;
