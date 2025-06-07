@@ -9,7 +9,7 @@ export default defineConfig({
   },
   build: {
     commonjsOptions: {
-      include: [/pdfjs-dist/]
+      include: [/node_modules/, /pdfjs-dist/]
     },
     rollupOptions: {
       output: {
